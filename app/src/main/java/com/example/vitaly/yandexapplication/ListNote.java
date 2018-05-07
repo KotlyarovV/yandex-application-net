@@ -49,7 +49,7 @@ public class ListNote implements Serializable{
         this.creationDate = creationDate;
         this.editingDate = creationDate;
         this.viewingDate = creationDate;
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid = uuid;
     }
 
     public ListNote(
@@ -67,6 +67,7 @@ public class ListNote implements Serializable{
         this.creationDate = format.parse(creationDate);
         this.editingDate = format.parse(editingDate);
         this.viewingDate = format.parse(viewingDate);
+        this.uuid = uuid;
     }
 
     public String getCaption() {

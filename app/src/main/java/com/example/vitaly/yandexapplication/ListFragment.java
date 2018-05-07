@@ -145,6 +145,7 @@ public class ListFragment extends Fragment {
             case R.id.action_settings_import_from_net:
                 netLoaderAsync = new NetLoaderAsync(notes, adapter, databaseHelper, netHelper);
                 netLoaderAsync.execute();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

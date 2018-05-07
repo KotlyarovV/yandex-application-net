@@ -257,12 +257,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_VIEWED, listNote.getViewingDateString());
         values.put(COLUMN_UUID, listNote.getUuid());
 
-        long id = database.insertWithOnConflict(TABLE_NOTES, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        String selection = COLUMN_UUID + "=?";
+        String[] selectionArgs = { listNote.getUuid() };
 
-        if (id == -1) {
-            String selection = COLUMN_UUID + "=?";
-            String[] selectionArgs = { listNote.getUuid() };
-            id = database.update(TABLE_NOTES, values, selection, selectionArgs);
+
+        int id = database.update(TABLE_NOTES, values, selection, selectionArgs);
+
+        if (id == 0) {
+            database.insertWithOnConflict(TABLE_NOTES, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         }
 
         return id;

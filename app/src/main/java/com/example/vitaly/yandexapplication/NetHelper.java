@@ -22,8 +22,6 @@ public class NetHelper {
 
     private static final String GET_ALL_NOTES_URL = "http://notes.mrdekk.ru/notes";
     private static final String AUTHORIZATION = "Bearer Abracadabra";
-  //  private static final String CREATE_NEW_NOTE_URL = ""
-
     private JsonHandler jsonHandler = new JsonHandler();
 
     private String readFromInput (InputStream inputStream) throws IOException {
@@ -38,8 +36,6 @@ public class NetHelper {
         }
         return total;
     }
-
-
 
     public ArrayList<ListNote> getAllNotes()
             throws MalformedURLException, IOException {
@@ -70,13 +66,14 @@ public class NetHelper {
         con.setRequestProperty("Authorization", AUTHORIZATION);
 
         String noteJson = jsonHandler.getJsonNoteFromNet(note).toString();
-
         con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(noteJson);
-        wr.flush();
-        wr.close();
 
+        if (!method.equals("DELETE")) {
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(noteJson);
+            wr.flush();
+            wr.close();
+        }
         int responseCode = con.getResponseCode();
         return responseCode == 400;
     }
@@ -86,7 +83,7 @@ public class NetHelper {
     }
 
     public boolean changeNote(ListNote note) throws MalformedURLException, IOException, JSONException {
-        return sendRequest(note, "POST", GET_ALL_NOTES_URL + "/" + note.getUuid());
+        return sendRequest(note, "PUT", GET_ALL_NOTES_URL + "/" + note.getUuid());
     }
 
     public boolean deleteNote(ListNote note) throws MalformedURLException, IOException, JSONException {

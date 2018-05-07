@@ -6,12 +6,14 @@ import com.example.vitaly.yandexapplication.DatabaseHelper;
 import com.example.vitaly.yandexapplication.ListNote;
 import com.example.vitaly.yandexapplication.ListNoteAdapter;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public abstract class ListHandlerAsync <T, F> extends AsyncTask<T, Void, F> {
 
     protected final ArrayList<ListNote> listNote;
     protected final ListNoteAdapter listNoteAdapter;
+   // protected final WeakReference<DatabaseHelper> databaseHelper;
     protected final DatabaseHelper databaseHelper;
 
     public ListHandlerAsync(

@@ -11,6 +11,7 @@ import com.example.vitaly.yandexapplication.NetHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class NetLoaderAsync extends AsyncTask<Void, Void, HashMap<String, ListNote>> {
 
@@ -23,7 +24,7 @@ public class NetLoaderAsync extends AsyncTask<Void, Void, HashMap<String, ListNo
             ArrayList<ListNote> listNotes,
             ListNoteAdapter listNoteAdapter,
             DatabaseHelper databaseHelper,
-            NetHelper netHelper) {
+            NetHelper netHelper){
         this.listNotes = listNotes;
         this.listNoteAdapter = listNoteAdapter;
         this.databaseHelper = databaseHelper;
@@ -60,5 +61,9 @@ public class NetLoaderAsync extends AsyncTask<Void, Void, HashMap<String, ListNo
             listNotes.addAll(notes.values());
             listNoteAdapter.notifyDataSetChanged();
         }
+    }
+
+    public interface Callback {
+        void onFinished(HashMap<String, ListNote> notes);
     }
 }
