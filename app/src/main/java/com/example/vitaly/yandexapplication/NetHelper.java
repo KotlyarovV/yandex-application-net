@@ -64,13 +64,14 @@ public class NetHelper {
         con.setRequestMethod(method);
         con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
         con.setRequestProperty("Authorization", AUTHORIZATION);
-
         String noteJson = jsonHandler.getJsonNoteFromNet(note).toString();
-        con.setDoOutput(true);
 
         if (!method.equals("DELETE")) {
+            con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(noteJson);
+
+            byte[] buf = noteJson.getBytes("UTF-8");
+            wr.write(buf, 0, buf.length);
             wr.flush();
             wr.close();
         }
