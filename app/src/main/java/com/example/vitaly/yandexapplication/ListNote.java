@@ -130,4 +130,25 @@ public class ListNote implements Serializable{
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    @Override
+    public int hashCode() {
+        return uuid.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof  ListNote))
+            return false;
+
+        ListNote listNote = (ListNote) obj;
+
+        if (listNote.uuid.equals(this.uuid)
+                && listNote.caption.equals(this.caption)
+                && listNote.description.equals(this.description)
+                && listNote.color == this.color)
+
+            return true;
+        return false;
+    }
 }
